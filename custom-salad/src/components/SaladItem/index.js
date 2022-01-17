@@ -1,0 +1,1 @@
+export { SaladItem } from './SaladItem'

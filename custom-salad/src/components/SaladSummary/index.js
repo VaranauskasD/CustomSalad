@@ -1,0 +1,1 @@
+export { SaladSummary } from './SaladSummary'
