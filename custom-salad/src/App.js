@@ -1,13 +1,17 @@
 import logo from './logo.svg'
-import './App.css'
-import { Navigation, SaladMaker } from './components'
+import { Navigation, SaladMaker, UserContext } from './components'
 
-function App() {
+const user = {
+  name: 'Kwame',
+  favorites: ['avocado', 'carrot'],
+}
+
+const App = () => {
   return (
-    <div className="App">
+    <UserContext.Provider value={user}>
       <Navigation />
       <SaladMaker />
-    </div>
+    </UserContext.Provider>
   )
 }
 
