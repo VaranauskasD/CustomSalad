@@ -1,7 +1,8 @@
-import React, { useContext } from 'react'
+import React, { useReducer, useContext } from 'react'
 import PropTypes from 'prop-types'
 import { createUseStyles } from 'react-jss'
 import { UserContext } from '../User'
+import { SaladContext } from '../SaladMaker/'
 
 const useStyles = createUseStyles({
   add: {
@@ -29,10 +30,20 @@ const useStyles = createUseStyles({
   },
 })
 
+const reducer = (key) => key + 1
+
 export const SaladItem = ({ image, name }) => {
   const classes = useStyles()
   const user = useContext(UserContext)
   const favorite = user.favorites.includes(name)
+  const { setSalad } = useContext(SaladContext)
+  const [id, updateId] = useReducer(reducer, 0)
+
+  const update = () => {
+    setSalad({ name, id: `${name}-${id}` })
+    updateId()
+  }
+
   return (
     <div className={classes.wrapper}>
       <h3>{name}</h3>
@@ -42,7 +53,7 @@ export const SaladItem = ({ image, name }) => {
       >
         {favorite ? '😋' : ''}
       </span>
-      <button className={classes.add}>
+      <button className={classes.add} onClick={update}>
         <span className={classes.image} role="img" aria-label={name}>
           {image}
         </span>
